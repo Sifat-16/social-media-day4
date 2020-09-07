@@ -1,0 +1,307 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<!-- Mirrored from wpkixx.com/html/winku/newsfeed.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 12 Jan 2020 16:23:46 GMT -->
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+    <title>Winku Social Network Toolkit</title>
+    <link rel="icon" href="images/fav.png" type="image/png" sizes="16x16">
+
+    <link rel="stylesheet" href="{% static 'css/main.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/color.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+
+<body>
+<div class="col-lg-6">
+<div class="loadMore">
+										
+										
+										<div class="central-meta item">
+											<div class="user-post">
+												<div class="friend-info">
+													<figure>
+														<img src="{{dp.author.profileURL}}" alt="">
+													</figure>
+													<div class="friend-name">
+														{% if p.author.first_name and p.author.last_name %}
+														<ins><a href="time-line.html" title="">{{dp.author.first_name}}
+																{{dp.author.last_name}}</a></ins>
+														{% else %}
+														<ins><a href="time-line.html"
+																title="">{{dp.author.user}}</a></ins>
+														{% endif %}
+														<span>published: {{dp.created}}</span>
+														{% if request.user == dp.author.user %}
+														<a
+															href="{% url 'update-post' dp.id %}"><button>Update</button></a>
+														<a
+															href="{% url 'delete-post' dp.id %}"><button>Delete</button></a>
+														{% endif %}
+													</div>
+													<div class="post-meta">
+														<img src="{{dp.imageURL}}" alt="">
+														<div class="we-video-info">
+															<ul>
+																<li>
+																	<span class="views" data-toggle="tooltip"
+																		title="views">
+																		<i class="fa fa-eye"></i>
+																		<ins>1.2k</ins>
+																	</span>
+																</li>
+																<li>
+																	<span class="comment" data-toggle="tooltip"
+																		title="Comments">
+																		<i class="fa fa-comments-o"></i>
+																		<ins>{{dp.num_of_comments}}</ins>
+																	</span>
+																</li>
+																<li>
+
+																	<span class="like" data-toggle="tooltip"
+																		title="like">
+																		{% if myprofile in dp.liked.all %}
+																		<form method="POST" action="">
+																			{% csrf_token %}
+																			<input type="hidden" name="unlike_id"
+																				value={{dp.id}}>
+
+																			<button type="submit" name="unlike"><i
+																					class="ti-heart-broken"></i></button>
+
+
+
+																		</form>
+																		{% else %}
+																		<form method="POST" action="">
+																			{% csrf_token %}
+																			<input type="hidden" name="like_id"
+																				value={{dp.id}}>
+
+
+
+																			<button type="submit" name="like"><i
+																					class="ti-heart"></i></button>
+
+																		</form>
+																		{% endif %}
+																		<ins>{{dp.num_of_likes}}</ins>
+																	</span>
+																</li>
+																<!--<li>
+															<span class="dislike" data-toggle="tooltip" title="dislike">
+																<i class="ti-heart-broken"></i>
+																<ins>200</ins>
+															</span>
+														</li>-->
+																<li class="social-media">
+																	<div class="menu">
+																		<div class="btn trigger"><i
+																				class="fa fa-share-alt"></i></div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#"
+																					title=""><i
+																						class="fa fa-html5"></i></a>
+																			</div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#"
+																					title=""><i
+																						class="fa fa-facebook"></i></a>
+																			</div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#"
+																					title=""><i
+																						class="fa fa-google-plus"></i></a>
+																			</div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#"
+																					title=""><i
+																						class="fa fa-twitter"></i></a>
+																			</div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#"
+																					title=""><i
+																						class="fa fa-css3"></i></a>
+																			</div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#"
+																					title=""><i
+																						class="fa fa-instagram"></i></a>
+																			</div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#"
+																					title=""><i
+																						class="fa fa-dribbble"></i></a>
+																			</div>
+																		</div>
+																		<div class="rotater">
+																			<div class="btn btn-icon"><a href="#"
+																					title=""><i
+																						class="fa fa-pinterest"></i></a>
+																			</div>
+																		</div>
+
+																	</div>
+																</li>
+															</ul>
+														</div>
+														<div class="description">
+
+															<p>
+																{{dp.content}}
+															</p>
+														</div>
+													</div>
+												</div>
+												<div class="coment-area">
+													<ul class="we-comet">
+														<!---
+												<li>
+													<div class="comet-avatar">
+														<img src="images/resources/comet-1.jpg" alt="">
+													</div>
+													<div class="we-comment">
+														<div class="coment-head">
+															<h5><a href="time-line.html" title="">Jason borne</a></h5>
+															<span>1 year ago</span>
+															<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+														</div>
+														<p>we are working for the dance and sing songs. this car is very awesome for the youngster. please vote this car and like our post</p>
+													</div>
+													<ul>
+														<li>
+															<div class="comet-avatar">
+																<img src="images/resources/comet-2.jpg" alt="">
+															</div>
+															<div class="we-comment">
+																<div class="coment-head">
+																	<h5><a href="time-line.html" title="">alexendra dadrio</a></h5>
+																	<span>1 month ago</span>
+																	<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+																</div>
+																<p>yes, really very awesome car i see the features of this car in the official website of <a href="#" title="">#Mercedes-Benz</a> and really impressed :-)</p>
+															</div>
+														</li>
+														<li>
+															<div class="comet-avatar">
+																<img src="images/resources/comet-3.jpg" alt="">
+															</div>
+															<div class="we-comment">
+																<div class="coment-head">
+																	<h5><a href="time-line.html" title="">Olivia</a></h5>
+																	<span>16 days ago</span>
+																	<a class="we-reply" href="#" title="Reply"><i class="fa fa-reply"></i></a>
+																</div>
+																<p>i like lexus cars, lexus cars are most beautiful with the awesome features, but this car is really outstanding than lexus</p>
+															</div>
+														</li>
+													</ul>
+												</li>-->
+														{% if dp.comment_set.all %}
+														{% for c in dp.comment_set.all %}
+														<li>
+															<div class="comet-avatar">
+																<img src="{{c.user.profileURL}}" alt="">
+															</div>
+															<div class="we-comment">
+																<div class="coment-head">
+																	{% if c.user.first_name and c.user.last_name %}
+																	<h5><a href="time-line.html"
+																			title="">{{c.user.first_name}}
+																			{{c.user.last_name}}</a></h5>
+																	{% else %}
+																	<h5><a href="time-line.html"
+																			title="">{{c.user.user}}</a></h5>
+																	{% endif %}
+																	<span>{{c.created}}</span>
+
+																	<a class="we-reply" href="#" title="Reply"><i
+																			class="fa fa-reply"></i></a>
+																</div>
+																<p>{{c.body}}
+																	<i class="em em-smiley"></i>
+																</p>
+															</div>
+															<div>
+																{% if request.user == c.user.user %}
+																<a
+																	href="{% url 'update-comment' c.id %}"><button>Update</button></a>
+																<a
+																	href="{% url 'delete-comment' c.id %}"><button>Delete</button></a>
+																{% endif %}
+															</div>
+														</li>
+														{% endfor %}
+														{% endif %}
+														<li>
+															<a href="#" title="" class="showmore underline">more
+																comments</a>
+														</li>
+														<li class="post-comment">
+															<div class="comet-avatar">
+																<img src="{{myprofile.profileURL}}" alt="">
+															</div>
+															<div class="post-comt-box">
+																{% if dp.comment_choice == 'allow-comment' %}
+																<form method="POST" action="{% url 'comment' %}">
+																	{% csrf_token %}
+																	{{cf.body}}
+																	<div class="add-smiles">
+																		<span class="em em-expressionless"
+																			title="add icon"></span>
+																	</div>
+																	<div class="smiles-bunch">
+																		<i class="em em---1"></i>
+																		<i class="em em-smiley"></i>
+																		<i class="em em-anguished"></i>
+																		<i class="em em-laughing"></i>
+																		<i class="em em-angry"></i>
+																		<i class="em em-astonished"></i>
+																		<i class="em em-blush"></i>
+																		<i class="em em-disappointed"></i>
+																		<i class="em em-worried"></i>
+																		<i class="em em-kissing_heart"></i>
+																		<i class="em em-rage"></i>
+																		<i class="em em-stuck_out_tongue"></i>
+																	</div>
+																	<input type="hidden" name="post_id" value={{dp.id}}>
+																	<button type="submit" name="submit_comment"
+																		style="color: blue;">Send</button>
+																</form>
+																{% else %}
+																<h5>The Author has restricted the comment</h5>
+																{% endif %}
+															</div>
+														</li>
+													</ul>
+												</div>
+											</div>
+										</div>
+                                        </div>
+                                        </div>
+
+<script data-cfasync="false" src="../../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
+<script src="{% static 'js/main.min.js' %}"></script>
+<script src="{% static 'js/script.js' %}"></script>
+<script src="{% static 'js/map-init.js' %}"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyA8c55_YHLvDHGACkQscgbGLtLRdxBDCfI"></script>
+
+</body>
+
+<!-- Mirrored from wpkixx.com/html/winku/newsfeed.html by HTTrack Website Copier/3.x [XR&CO'2014], Sun, 12 Jan 2020 16:23:46 GMT -->
+
+</html>
